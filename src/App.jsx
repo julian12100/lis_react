@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom'
 import { useState, useEffect } from "react";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import Extension from './pages/Extension'
@@ -6,7 +6,6 @@ import Home from './pages/Home'
 import Analytics from './pages/Analytics';
 import Navbar from './components/Navbar';
 import Athentic from './components/Athentic';
-
 
 function App() {
   const [user, setUser] = useState(null);
@@ -55,18 +54,18 @@ function App() {
       <Routes>
         <Route path='/extensiones' element={
 
-          <Extension />
+          <Extension user={user} />
 
         } />
 
 
 
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Navigate to="/extensiones" />} />
         <Route
           path="/analytics"
           element={
             <ProtectedRoute
-              redirectTo="/"
+              redirectTo="/extensiones"
               isAllowed={!!user && user.confirmed}
             >
               <Analytics />
