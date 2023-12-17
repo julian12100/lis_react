@@ -1,11 +1,13 @@
 import { Route, Routes, Navigate } from 'react-router-dom'
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import Extension from './pages/Extension'
-import Home from './pages/Home'
-import Analytics from './pages/Analytics';
 import Navbar from './components/Navbar';
 import Athentic from './components/Athentic';
+
+const Home = lazy (() => import("./pages/Home"));
+const Analytics = lazy (() => import("./pages/Analytics"));
+const Extension = lazy (() => import("./pages/Extension"));
+
 
 function App() {
   const [user, setUser] = useState(null);
@@ -49,7 +51,9 @@ function App() {
 
   return (
     <>
-      <Athentic user={user} onLogin={handleLogin} onLogout={handleLogout} />
+      
+      
+        <Athentic user={user} onLogin={handleLogin} onLogout={handleLogout} />
       <Navbar user={user} />
       <Routes>
         <Route path='/extensiones' element={
@@ -74,6 +78,7 @@ function App() {
         />
 
       </Routes>
+    
     </>
 
   )

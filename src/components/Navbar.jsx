@@ -62,18 +62,26 @@ function Navbar({ user }) {
                 }`}
               >
                 <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                  <li className="text-white py-2 px-4 pt-1 lg:mr-7 hover:text-white/25 transition duration-500 ease-in-out">
-                   
+                
+                {hasMesaRole() && (
+ <li className="text-white py-2 px-4 pt-1 lg:mr-7 hover:text-white/25 transition duration-500 ease-in-out">  
                     <Link to="/">🏡 Inicio</Link>
                   </li>
+                )}
+                
+                 
+
+                  {hasMesaRole() && (
+                  <li className="text-white py-2 px-4 pt-1 lg:mr-7 hover:text-white/25 transition duration-500 ease-in-out">
+                    <Link to="/analytics">Analytics</Link>
+                  </li>
+                  )}
                  
                     <li className="text-white py-2 px-4 pt-1 lg:mr-7 hover:text-white/25 transition duration-500 ease-in-out">
                       <Link to="/extensiones">☎️ Extensiones</Link>
                     </li>
                
-                  <li className="text-white py-2 px-4 pt-1 lg:mr-7 hover:text-white/25 transition duration-500 ease-in-out">
-                    <Link to="/analytics">Analytics</Link>
-                  </li>
+                  
                 </ul>
               </div>
             </div>
