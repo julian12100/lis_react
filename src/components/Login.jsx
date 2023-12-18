@@ -3,6 +3,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useState } from 'react';
+import logoImevi from '../img/logo-imevi-svg.svg';
 
 const Login = ({ onLogin }) => {
   const { register, handleSubmit } = useForm();
@@ -11,7 +12,7 @@ const Login = ({ onLogin }) => {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        'http://192.168.174.133:1337/api/auth/local/',
+        'http://192.168.18.233:1337/api/auth/local/',
         {
           identifier: data.username,
           password: data.password,
@@ -34,8 +35,7 @@ const Login = ({ onLogin }) => {
     >
       {/* Logo */}
       <div className="mb-2 md:mb-0 flex flex-col items-center">
-        <h1 className="text-2xl font-bold text-gray-700">Lis.. 🖤</h1>
-        <div className="text-sm text-gray-500">Software para la gestión de TI</div>
+      <img src={logoImevi} alt="Logo IMEVI" width="200" height="200" className='py-4 pr-4' />
       </div>
 
       {/* Formulario de inicio de sesión */}
@@ -60,7 +60,7 @@ const Login = ({ onLogin }) => {
           className="w-full h-10 border p-2 rounded-md mb-2 md:mb-0 md:mr-2 text-sm"
         />
 
-        <button type="submit" className="bg-slate-900 text-white py-2 px-8 rounded-md md:ml-2 text-sm">
+        <button type="submit" className="bg-imeviColor text-white py-2 px-8 rounded-md md:ml-2 text-sm">
           Iniciar
         </button>
       </div>

@@ -109,7 +109,7 @@ function ExtensionForm({ onExtensionAdded, selectedExtension }) {
 
       <button
         type="submit"
-        className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+        className="w-full bg-imeviColor text-white p-2 rounded-md hover:bg-blue-800 focus:outline-none focus:bg-blue-600"
       >
         {isEditMode ? 'Guardar Cambios' : 'Agregar Extensión'}
       </button>

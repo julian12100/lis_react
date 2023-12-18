@@ -18,7 +18,7 @@ function Navbar({ user }) {
     return (
       <>
         <nav className="py-2 relative pl-6 pr-6">
-          <div className="bg-slate-900 w-full justify-between mx-auto md:items-center md:flex px-8 rounded-md">
+          <div className="bg-imeviColor w-full justify-between mx-auto md:items-center md:flex px-8 rounded-md">
             <div>
               <div className="flex items-center justify-between md:block">
                 <div className="md:hidden">

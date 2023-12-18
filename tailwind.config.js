@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        imeviColor: '#003D7B',
+      },
+    },
   },
   plugins: [],
 }

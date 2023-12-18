@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ExtensionForm from '../components/ExtensionForm';
 import '../index.css';
 import logoImevi from '../img/logo-imevi-svg.svg';
+import footerlogo from '../img/logo-footer.png';
 import { useExten } from '../context/ExtContext';
 
 function Extension(user) {
@@ -64,9 +65,7 @@ function Extension(user) {
     <div className="flex m-10">
       {/* Barra lateral */}
       <div className="w-1/4 p-4 mt-17">
-        <div className="mb-4 flex items-center justify-center">
-          <img src={logoImevi} alt="Logo IMEVI" width="200" height="200" className='py-4 pr-4' />
-        </div>
+        
         {hasMesaRole() && (
           <ExtensionForm
             onExtensionAdded={handleExtensionAdded}
@@ -75,11 +74,20 @@ function Extension(user) {
           />
         )}
         
-        <p className="text-justify">
+        {!hasMesaRole() && (
+          <>
+            <p className="text-justify mt-40">
           Bienvenido al directorio de extensiones telefónicas de IMEVI SAS. Aquí encontrarás la información de contacto de nuestros empleados,
           organizada de manera fácil de usar. Utiliza la barra de búsqueda y los filtros para encontrar rápidamente la información que necesitas.
           ¡Gracias por utilizar nuestra plataforma!
         </p>
+        <div className="mb-4 flex items-center justify-center mt-5">
+          <img src={footerlogo} alt="Logo IMEVI" width="200" height="200" className='py-4 pr-4' />
+        </div>
+          </>
+        )}
+
+      
       </div>
 
       {/* Contenido principal */}
@@ -176,7 +184,7 @@ function Extension(user) {
         <div className="flex items-center justify-center space-x-4">
   <h3
     onClick={prev}
-    className="cursor-pointer bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 m-3"
+    className="cursor-pointer bg-imeviColor text-white p-2 rounded-md hover:bg-blue-800 focus:outline-none focus:bg-blue-600 m-3"
   >
     Anterior
   </h3>
@@ -185,7 +193,7 @@ function Extension(user) {
   </h3>
   <h3
     onClick={next}
-    className="cursor-pointer bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 m-3"
+    className="cursor-pointer bg-imeviColor text-white p-2 rounded-md hover:bg-blue-800 focus:outline-none focus:bg-blue-600 m-3"
   >
     Siguiente
   </h3>
