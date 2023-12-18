@@ -3,6 +3,7 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import Navbar from './components/Navbar';
 import Athentic from './components/Athentic';
+import { ExtContextProvider } from './context/ExtContext';
 
 const Home = lazy (() => import("./pages/Home"));
 const Analytics = lazy (() => import("./pages/Analytics"));
@@ -50,9 +51,7 @@ function App() {
   };
 
   return (
-    <>
-      
-      
+    <ExtContextProvider>
         <Athentic user={user} onLogin={handleLogin} onLogout={handleLogout} />
       <Navbar user={user} />
       <Routes>
@@ -79,7 +78,7 @@ function App() {
 
       </Routes>
     
-    </>
+    </ExtContextProvider>
 
   )
 }

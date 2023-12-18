@@ -1,19 +1,17 @@
 // Extension.js
-
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import ExtensionForm from '../components/ExtensionForm';
 import '../index.css';
 import logoImevi from '../img/logo-imevi-svg.svg';
+import { useExten } from '../context/ExtContext';
 
 function Extension(user) {
-  const [extensions, setExtensions] = useState([]);
+
+  const {extensions, fetchExtensions, uniqueSedes, handleEliminarExtension, isEditMode, handleExtensionAdded, handleEditExtension, selectedExtension} = useExten()
+
   const [filteredExtensions, setFilteredExtensions] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [uniqueSedes, setUniqueSedes] = useState([]);
   const [selectedSede, setSelectedSede] = useState('');
-  const [selectedExtension, setSelectedExtension] = useState(null);
-  const [isEditMode, setIsEditMode] = useState(false);
   const [dataQt, setDataQt] = useState(10);
   const [currentPage, setcurrentPage] = useState(1)
 
@@ -21,23 +19,6 @@ function Extension(user) {
   const hasMesaRole = () => user && user.user && user.user.roles && user.user.roles.includes('mesa');
 
   useEffect(() => {
-    const fetchExtensions = async () => {
-      try {
-        const response = await axios.get('http://192.168.174.133:1337/api/extensions');
-        setExtensions(response.data.data);
-
-        // Obtener sedes únicas
-        const uniqueSedes = [...new Set(response.data.data.map(extension => extension.attributes.sede))];
-        setUniqueSedes(uniqueSedes);
-
-        
-        // Obtener opciones para el desplegable de tipo
-        const uniqueTipos = [...new Set(response.data.data.map(extension => extension.attributes.tipo))];
-        
-      } catch (error) {
-        console.error('Error fetching extensions:', error);
-      }
-    };
 
     fetchExtensions();
   }, []);
@@ -55,18 +36,6 @@ function Extension(user) {
   }
 
   // control para la eliminacion de extensiones
-  const handleEliminarExtension = async (extensionId) => {
-    try {
-      // Realizar la solicitud DELETE
-      await axios.delete(`http://192.168.174.133:1337/api/extensions/${extensionId}`);
-  
-      // Actualizar el estado local o recargar las extensiones después de eliminar
-      const updatedExtensions = extensions.filter((extension) => extension.id !== extensionId);
-      setExtensions(updatedExtensions);
-    } catch (error) {
-      console.error('Error al eliminar la extensión:', error);
-    }
-  };
 
   useEffect(() => {
     // Aplicar filtros y búsqueda
@@ -89,22 +58,6 @@ function Extension(user) {
 
   const handleSedeChange = (e) => {
     setSelectedSede(e.target.value);
-  };
-
-  const handleExtensionAdded = (newExtension) => {
-    // If in edit mode, update the extension
-    if (isEditMode) {
-      setSelectedExtension(null);
-      setIsEditMode(false);
-    } else {
-      // If not in edit mode, add the new extension
-      setExtensions((prevExtensions) => [...prevExtensions, newExtension]);
-    }
-  };
-
-  const handleEditExtension = (extension) => {
-    setSelectedExtension(extension);
-    setIsEditMode(true);
   };
   
   return (

@@ -1,106 +1,22 @@
 // ExtensionForm.js
+import React, { useEffect } from 'react';
+import { useExten } from '../context/ExtContext';
 
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+function ExtensionForm({ onExtensionAdded, selectedExtension }) {
 
-function ExtensionForm({ onExtensionAdded, isEditMode, selectedExtension }) {
-  const [newExtension, setNewExtension] = useState({
-    nombre: '',
-    extension: '',
-    area: '',
-    sede: '',
-    tipo: 'whatsapp', // Valor por defecto
-  });
-  const [sedeOptions, setSedeOptions] = useState([]);
-  const [tipoOptions, setTipoOptions] = useState([]);
+  const {newExtension, fetchOptions, sedeOptions, tipoOptions, modedition, isEditMode, handleInputChange, handleFormSubmit} = useExten()
+
+  
 
   useEffect(() => {
-    const fetchOptions = async () => {
-      try {
-        const response = await axios.get('http://192.168.174.133:1337/api/extensions');
-        const uniqueSedes = [...new Set(response.data.data.map(extension => extension.attributes.sede))];
-        const uniqueTipos = [...new Set(response.data.data.map(extension => extension.attributes.tipo))];
-        setSedeOptions(uniqueSedes);
-        setTipoOptions(uniqueTipos);
-      } catch (error) {
-        console.error('Error fetching extension options:', error);
-      }
-    };
 
     fetchOptions();
   }, []);
 
   useEffect(() => {
     // Si estamos en modo de edición, actualizamos el estado con la extensión seleccionada
-    if (isEditMode && selectedExtension) {
-      setNewExtension({
-        nombre: selectedExtension.attributes.nombre || '',
-        extension: selectedExtension.attributes.extension || '',
-        area: selectedExtension.attributes.area || '',
-        sede: selectedExtension.attributes.sede || '',
-        tipo: selectedExtension.attributes.tipo || 'whatsapp',
-      });
-    }
+    modedition();
   }, [isEditMode, selectedExtension]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setNewExtension((prevExtension) => ({
-      ...prevExtension,
-      [name]: value,
-    }));
-  };
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-
-    // Validar que los campos requeridos no estén vacíos
-    if (!newExtension.nombre || !newExtension.extension || !newExtension.area || !newExtension.sede) {
-      alert('Todos los campos son obligatorios.');
-      return;
-    }
-
-    try {
-      // Determinar si estamos en modo de edición o adición
-      if (isEditMode) {
-        // Realizar la petición PUT para actualizar la extensión existente
-        await axios.put(`http://192.168.174.133:1337/api/extensions/${selectedExtension.id}`, {
-          data: {
-            nombre: newExtension.nombre,
-            extension: newExtension.extension,
-            area: newExtension.area,
-            sede: newExtension.sede,
-            tipo: newExtension.tipo,
-          },
-        });
-      } else {
-        // Realizar la petición POST con Axios para agregar la nueva extensión
-        const response = await axios.post('http://192.168.174.133:1337/api/extensions', {
-          data: {
-            nombre: newExtension.nombre,
-            extension: newExtension.extension,
-            area: newExtension.area,
-            sede: newExtension.sede,
-            tipo: newExtension.tipo,
-          },
-        });
-
-        // Llamar a la función proporcionada por el padre para notificar la adición de la nueva extensión
-        onExtensionAdded(response.data.data);
-      }
-
-      // Limpiar el formulario después de la creación o actualización exitosa
-      setNewExtension({
-        nombre: '',
-        extension: '',
-        area: '',
-        sede: '',
-        tipo: 'whatsapp',
-      });
-    } catch (error) {
-      console.error(isEditMode ? 'Error al actualizar la extensión:' : 'Error al agregar la extensión:', error);
-    }
-  };
 
   return (
     <form onSubmit={handleFormSubmit} className="mb-6 max-w-md mx-auto border-2 p-6 rounded-md shadow-xl">
