@@ -1,17 +1,18 @@
 import { Route, Routes, Navigate } from 'react-router-dom'
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy } from "react";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import Navbar from './components/Navbar';
 import Athentic from './components/Athentic';
-import { ExtContextProvider } from './context/ExtContext';
+import { useExten } from '../src/context/ExtContext';
 
 const Home = lazy (() => import("./pages/Home"));
 const Analytics = lazy (() => import("./pages/Analytics"));
 const Extension = lazy (() => import("./pages/Extension"));
 
-
 function App() {
   const [user, setUser] = useState(null);
+
+  const {} = useExten()
 
   useEffect(() => {
     // Verificar si hay un usuario almacenado en localStorage
@@ -51,8 +52,8 @@ function App() {
   };
 
   return (
-    <ExtContextProvider>
-        <Athentic user={user} onLogin={handleLogin} onLogout={handleLogout} />
+    <>
+      <Athentic user={user} onLogin={handleLogin} onLogout={handleLogout} />
       <Navbar user={user} />
       <Routes>
         <Route path='/extensiones' element={
@@ -78,7 +79,8 @@ function App() {
 
       </Routes>
     
-    </ExtContextProvider>
+    </>
+      
 
   )
 }

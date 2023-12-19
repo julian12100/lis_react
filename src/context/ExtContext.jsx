@@ -1,5 +1,4 @@
 import { createContext, useContext, useState } from "react";
-import { useNavigate } from 'react-router-dom';
 import { listarextensiones, eliminarextension, crearextension, actualizarextension } from "../api/extapi";
 export const ExtContext = createContext ();
 

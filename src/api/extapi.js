@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const listarextensiones = async () =>
-    await axios.get('http://192.168.18.233:1337/api/extensions');
+    await axios.get('http://192.168.174.133:1337/api/extensions');
 
 export const crearextension = async (newExtension) =>
     await axios.post('http://192.168.18.233:1337/api/extensions', {

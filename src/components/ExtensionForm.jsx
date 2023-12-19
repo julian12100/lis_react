@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useExten } from '../context/ExtContext';
 
-function ExtensionForm({ onExtensionAdded, selectedExtension }) {
+function ExtensionForm({ selectedExtension }) {
 
   const {newExtension, fetchOptions, sedeOptions, tipoOptions, modedition, isEditMode, handleInputChange, handleFormSubmit} = useExten()
 
