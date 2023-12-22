@@ -1,29 +1,39 @@
 import axios from "axios";
 
 export const listarextensiones = async () =>
-    await axios.get('http://192.168.174.133:1337/api/extensions');
+  await axios.get('http://172.16.2.241:1337/api/extensions');
+
+export const obtenerBanner = async () => {
+  try {
+    const response = await axios.get('http://172.16.2.241:1337/api/banner');
+    return response.data.data.attributes.banner;
+  } catch (error) {
+    console.error('Error al obtener la información inicial:', error);
+    throw error; // Puedes manejar el error aquí o dejar que el componente lo maneje
+  }
+};
 
 export const crearextension = async (newExtension) =>
-    await axios.post('http://192.168.18.233:1337/api/extensions', {
-        data: {
-          nombre: newExtension.nombre,
-          extension: newExtension.extension,
-          area: newExtension.area,
-          sede: newExtension.sede,
-          tipo: newExtension.tipo,
-        },
-      });
+  await axios.post('http://172.16.2.241:1337/api/extensions', {
+    data: {
+      nombre: newExtension.nombre,
+      extension: newExtension.extension,
+      area: newExtension.area,
+      sede: newExtension.sede,
+      tipo: newExtension.tipo,
+    },
+  });
 
 export const eliminarextension = async (id) =>
-    await axios.delete(`http://192.168.18.233:1337/api/extensions/${id}`);
+  await axios.delete(`http://172.16.2.241:1337/api/extensions/${id}`);
 
 export const actualizarextension = async (updatedExtension, id) =>
-    await axios.put(`http://192.168.18.233:1337/api/extensions/${id}`, {
-      data: {
-        nombre: updatedExtension.nombre,
-        extension: updatedExtension.extension,
-        area: updatedExtension.area,
-        sede: updatedExtension.sede,
-        tipo: updatedExtension.tipo,
-      },
-    });
+  await axios.put(`http://172.16.2.241:1337/api/extensions/${id}`, {
+    data: {
+      nombre: updatedExtension.nombre,
+      extension: updatedExtension.extension,
+      area: updatedExtension.area,
+      sede: updatedExtension.sede,
+      tipo: updatedExtension.tipo,
+    },
+  });

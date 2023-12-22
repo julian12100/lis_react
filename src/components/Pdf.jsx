@@ -39,14 +39,14 @@ const styles = StyleSheet.create({
     cell: { margin: 'auto', marginTop: 5, fontSize: 10 },
   });
 
-function Pdf() {
+function Pdf( ) {
 
     const [extensiones, setExtensiones] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get('http://192.168.174.133:1337/api/extensions');
+            const response = await axios.get('http://172.16.2.241:1337/api/extensions');
             setExtensiones(response.data.data); // Accedemos al campo "data" en la respuesta
           } catch (error) {
             console.error('Error fetching data:', error.message, error.response);
@@ -59,7 +59,9 @@ function Pdf() {
       const atributosSeleccionados = ["nombre", "extension", "area", "sede"];
 
   return (
-    <Document>
+   
+<>
+ <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
         <Text>Listado de extensiones IMEVI</Text>
@@ -91,6 +93,9 @@ function Pdf() {
       </View>
     </Page>
   </Document>
+</>
+
+
   )
 }
 

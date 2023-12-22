@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { listarextensiones, eliminarextension, crearextension, actualizarextension } from "../api/extapi";
+import { listarextensiones, eliminarextension, crearextension, actualizarextension, obtenerBanner } from "../api/extapi";
 export const ExtContext = createContext ();
 
 export const useExten = () => {
@@ -17,6 +17,7 @@ export const ExtContextProvider = ({ children }) => {
     const [sedeOptions, setSedeOptions] = useState([]);
     const [tipoOptions, setTipoOptions] = useState([]);
     const [isEditMode, setIsEditMode] = useState(false);
+    const [bannerText, setBannerText] = useState('');
     const [selectedExtension, setSelectedExtension] = useState(null);
     const [newExtension, setNewExtension] = useState({
         nombre: '',
@@ -37,6 +38,16 @@ export const ExtContextProvider = ({ children }) => {
   
         } catch (error) {
           console.error('Error fetching extensions:', error);
+        }
+      };
+
+      const obtenerbanners = async () => {
+        try {
+          const banner = await obtenerBanner();
+         
+          setBannerText(banner);
+        } catch (error) {
+          // Manejar el error aquí si es necesario
         }
       };
 
@@ -152,6 +163,9 @@ export const ExtContextProvider = ({ children }) => {
         setIsEditMode(true);
       };
 
+      const handleInputBanner = (event) => {
+        setBannerText(event.target.value);
+      };
 
     return (
     <ExtContext.Provider value={{extensions, 
@@ -169,7 +183,11 @@ export const ExtContextProvider = ({ children }) => {
     handleFormSubmit,
     handleExtensionAdded,
     handleEditExtension,
-    selectedExtension}}>
+    selectedExtension,
+    obtenerbanners,
+    bannerText,
+    handleInputBanner
+   }}>
         {children}
     </ExtContext.Provider>
     );
