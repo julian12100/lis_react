@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 .font-custom {
-    font-family: 'Akaya Kanadaka', cursive;
+    font-family: 'Oswald', cursive;
   }

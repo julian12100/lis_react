@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import ExtensionForm from '../components/ExtensionForm';
 import '../index.css';
 import axios from 'axios';
-import footerlogo from '../img/logo-footer.png';
 import { useExten } from '../context/ExtContext';
 import ExtensionTable from '../components/ExtensionTable';
 import Pdf from '../components/Pdf';
@@ -30,7 +29,7 @@ function Extension(user) {
     fetchExtensions();
   }, []);
 
-  console.log(filteredExtensions)
+  console.log('props que envia al pdf: ',filteredExtensions)
   // variables creadas para el control de la paginacion 
   const indexfin = currentPage * dataQt
   const indexini = indexfin - dataQt
@@ -144,7 +143,7 @@ function Extension(user) {
           ))}
         </select>
 
-        <PDFDownloadLink document={<Pdf />} fileName="extensiones_imevi.pdf">
+        <PDFDownloadLink document={<Pdf filtrosede={filteredExtensions} />} fileName="extensiones_imevi.pdf">
           {({ loading, url, error, blob }) => (
             loading ? (
               <button className="bg-imeviColor hover:bg-blue-800 text-white font-bold py-1 px-2 rounded">

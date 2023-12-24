@@ -34,8 +34,11 @@ const Login = ({ onLogin }) => {
       className="max-w-screen-xl mx-auto mt-2 p-2 rounded-md flex flex-col md:flex-row items-center justify-between"
     >
       {/* Logo */}
+
       <div className="mb-2 md:mb-0 flex flex-col items-center">
-      <img src={logoImevi} alt="Logo IMEVI" width="200" height="200" className='py-4 pr-4' />
+        <a href='/'>
+          <img src={logoImevi} alt="Logo IMEVI" width="200" height="200" className='py-4 pr-4' />
+        </a>
       </div>
 
       {/* Formulario de inicio de sesión */}
@@ -67,11 +70,11 @@ const Login = ({ onLogin }) => {
 
       {/* Mostrar mensaje de error si existe */}
       {errorMessage && <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-  <strong class="font-bold">Error al iniciar sesión.</strong>
-  <span class="block sm:inline"> Verifica tus credenciales.</span>
-  <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-  </span>
-</div>}
+        <strong class="font-bold">Error al iniciar sesión.</strong>
+        <span class="block sm:inline"> Verifica tus credenciales.</span>
+        <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+        </span>
+      </div>}
     </form>
 
   );
