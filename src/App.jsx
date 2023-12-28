@@ -67,6 +67,7 @@ function App() {
 
 
         <Route path='/' element={<Navigate to="/extensiones" />} />
+        
         <Route
           path="/analytics"
           element={

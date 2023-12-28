@@ -1,11 +1,11 @@
 import axios from "axios";
 
 export const listarextensiones = async () =>
-  await axios.get('http://172.16.2.241:1337/api/extensions');
+  await axios.get('http://172.16.2.15:1339/api/extensions');
 
 export const obtenerBanner = async () => {
   try {
-    const response = await axios.get('http://172.16.2.241:1337/api/banner');
+    const response = await axios.get('http://172.16.2.15:1339/api/banner');
     return response.data.data.attributes.banner;
   } catch (error) {
     console.error('Error al obtener la información inicial:', error);
@@ -14,7 +14,7 @@ export const obtenerBanner = async () => {
 };
 
 export const crearextension = async (newExtension) =>
-  await axios.post('http://172.16.2.241:1337/api/extensions', {
+  await axios.post('http://172.16.2.15:1339/api/extensions', {
     data: {
       nombre: newExtension.nombre,
       extension: newExtension.extension,
@@ -25,10 +25,10 @@ export const crearextension = async (newExtension) =>
   });
 
 export const eliminarextension = async (id) =>
-  await axios.delete(`http://172.16.2.241:1337/api/extensions/${id}`);
+  await axios.delete(`http://172.16.2.15:1339/api/extensions/${id}`);
 
 export const actualizarextension = async (updatedExtension, id) =>
-  await axios.put(`http://172.16.2.241:1337/api/extensions/${id}`, {
+  await axios.put(`http://172.16.2.15:1339/api/extensions/${id}`, {
     data: {
       nombre: updatedExtension.nombre,
       extension: updatedExtension.extension,

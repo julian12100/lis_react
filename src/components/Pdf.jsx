@@ -70,7 +70,7 @@ function Pdf({ filtrosede }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://172.16.2.241:1337/api/extensions');
+        const response = await axios.get('http://172.16.2.15:1339/api/extensions');
         setExtensiones(response.data.data);
       } catch (error) {
         console.error('Error fetching data:', error.message, error.response);

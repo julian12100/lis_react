@@ -12,7 +12,7 @@ const Login = ({ onLogin }) => {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        'http://172.16.2.241:1337/api/auth/local/',
+        'http://172.16.2.15:1339/api/auth/local/',
         {
           identifier: data.username,
           password: data.password,
