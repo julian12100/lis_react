@@ -24,7 +24,7 @@ export const ExtContextProvider = ({ children }) => {
         extension: '',
         area: '',
         sede: '',
-        tipo: 'whatsapp', // Valor por defecto
+        tipo: 'local', // Valor por defecto
       });
 
     const fetchExtensions = async () => {
@@ -140,7 +140,7 @@ export const ExtContextProvider = ({ children }) => {
             extension: '',
             area: '',
             sede: '',
-            tipo: 'whatsapp',
+            tipo: 'local',
           });
         } catch (error) {
           console.error(isEditMode ? 'Error al actualizar la extensión:' : 'Error al agregar la extensión:', error);

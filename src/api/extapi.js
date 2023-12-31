@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const listarextensiones = async () =>
-  await axios.get('http://172.16.2.15:1339/api/extensions');
+  await axios.get('http://172.16.2.15:1339/api/extensions?sort[createdAt]=desc');
 
 export const obtenerBanner = async () => {
   try {
