@@ -91,7 +91,7 @@ export const ExtContextProvider = ({ children }) => {
               extension: selectedExtension.attributes.extension || '',
               area: selectedExtension.attributes.area || '',
               sede: selectedExtension.attributes.sede || '',
-              tipo: selectedExtension.attributes.tipo || 'whatsapp',
+              tipo: selectedExtension.attributes.tipo || 'local',
             });
             
           }
