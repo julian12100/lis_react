@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { toast } from 'sonner';
 import { listarextensiones, eliminarextension, crearextension, actualizarextension, obtenerBanner } from "../api/extapi";
 export const ExtContext = createContext ();
 
@@ -125,11 +126,11 @@ export const ExtContextProvider = ({ children }) => {
                 sede: newExtension.sede,
                 tipo: newExtension.tipo,
               }, selectedExtension.id);
-              window.location.reload();
+              toast.success('Se creo la extension exitosamente');
           } else {
             // Realizar la petición POST con Axios para agregar la nueva extensión
             const response = await crearextension(newExtension)
-    
+            
             // Llamar a la función proporcionada por el padre para notificar la adición de la nueva extensión
             handleExtensionAdded(response.data.data);
           }

@@ -15,7 +15,7 @@ function Extension(user) {
   const [filteredExtensions, setFilteredExtensions] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSede, setSelectedSede] = useState('');
-  const [dataQt, setDataQt] = useState(10);
+  const [dataQt, setDataQt] = useState(25);
   const [currentPage, setcurrentPage] = useState(1)
   const [response, setResponse] = useState(null);
 

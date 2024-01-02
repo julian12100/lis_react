@@ -11,7 +11,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ExtContextProvider>
     <BrowserRouter>
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="loader"></div>
+</div>}>
         <App />
         <Footer/>
     </Suspense>
