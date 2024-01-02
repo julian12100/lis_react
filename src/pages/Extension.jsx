@@ -7,6 +7,7 @@ import { useExten } from '../context/ExtContext';
 import ExtensionTable from '../components/ExtensionTable';
 import Pdf from '../components/Pdf';
 import { PDFDownloadLink } from '@react-pdf/renderer';
+import { Toaster, toast } from 'sonner';
 
 function Extension(user) {
 
@@ -29,7 +30,6 @@ function Extension(user) {
     fetchExtensions();
   }, []);
 
-  console.log('props que envia al pdf: ',filteredExtensions)
   // variables creadas para el control de la paginacion 
   const indexfin = currentPage * dataQt
   const indexini = indexfin - dataQt
@@ -70,14 +70,14 @@ function Extension(user) {
 
   const handlePutRequest = () => {
     // Realiza la solicitud PUT con el nuevo texto del banner
-    axios.put('http://172.16.2.241:1337/api/banner', {
+    axios.put('http://172.16.2.15:1339/api/banner', {
       data: {
         banner: bannerText
       }
     })
       .then(response => {
         setResponse(response.data);
-        alert("se actualiza el banner correctamente.")
+        toast.success('Banner actualizado exitosamente');
       })
       .catch(error => {
         console.error('Error al realizar la solicitud PUT:', error);
@@ -88,6 +88,17 @@ function Extension(user) {
 
   const content = (
     <>
+      <Toaster
+        position='top-right'
+        toastOptions={{
+
+          style: {
+            background: '#BBFF9A',
+            fontSize: '15px',
+          },
+          className: 'className',
+        }}
+      />
       <div className='text-center m-2'>
 
         <h1 className="text-4xl font-bold font-custom mb-2 m-2">Lista de Extensiones</h1>
@@ -157,7 +168,7 @@ function Extension(user) {
           )}
         </PDFDownloadLink>
 
-        
+
       </div>
 
       {/* Lista de extensiones */}
@@ -176,7 +187,7 @@ function Extension(user) {
         </h3>
         <h3 className="text-gray-600 p-5 font-bold">
           {currentPage} / {nPages}
-          
+
         </h3>
         <h3
           onClick={next}
@@ -185,7 +196,7 @@ function Extension(user) {
           Siguiente
         </h3>
         <select onChange={(e) => changepage(e)} name="post" id="post"
-         className="border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 px-2 py-1 mb-4 m-4">
+          className="border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 px-2 py-1 mb-4 m-4">
           <option value="20">20</option>
           <option value="50">50</option>
           <option value="100">100</option>

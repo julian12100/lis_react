@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
-import { toast } from 'sonner';
 import { listarextensiones, eliminarextension, crearextension, actualizarextension, obtenerBanner } from "../api/extapi";
 export const ExtContext = createContext ();
+import { toast } from 'sonner';
 
 export const useExten = () => {
     const context = useContext(ExtContext)
@@ -126,13 +126,14 @@ export const ExtContextProvider = ({ children }) => {
                 sede: newExtension.sede,
                 tipo: newExtension.tipo,
               }, selectedExtension.id);
-              toast.success('Se creo la extension exitosamente');
+              toast.success('Extension actualizada exitosamente');
           } else {
             // Realizar la petición POST con Axios para agregar la nueva extensión
             const response = await crearextension(newExtension)
             
             // Llamar a la función proporcionada por el padre para notificar la adición de la nueva extensión
             handleExtensionAdded(response.data.data);
+            toast.success('Extension creada exitosamente');
           }
     
           // Limpiar el formulario después de la creación o actualización exitosa
@@ -155,7 +156,7 @@ export const ExtContextProvider = ({ children }) => {
           setIsEditMode(false);
         } else {
           // If not in edit mode, add the new extension
-          setExtensions((prevExtensions) => [...prevExtensions, newExtension]);
+          setExtensions((prevExtensions) =>[...prevExtensions, newExtension]);
         }
       };
 
