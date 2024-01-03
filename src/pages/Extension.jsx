@@ -158,7 +158,7 @@ function Extension(user) {
           {({ loading, url, error, blob }) => (
             loading ? (
               <button className="bg-imeviColor hover:bg-blue-800 text-white font-bold py-1 px-2 rounded">
-                Generando documento...
+                Generando...
               </button>
             ) : (
               <button className="bg-imeviColor hover:bg-blue-800 text-white font-bold py-1 px-2 rounded">
@@ -197,9 +197,9 @@ function Extension(user) {
         </h3>
         <select onChange={(e) => changepage(e)} name="post" id="post"
           className="border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 px-2 py-1 mb-4 m-4">
-          <option value="20">20</option>
           <option value="50">50</option>
           <option value="100">100</option>
+          <option value="500">500</option>
         </select>
       </div>
     </>
@@ -207,20 +207,14 @@ function Extension(user) {
   return (
     <div className="flex m-10">
       {/* Barra lateral */}
-
-
       {hasMesaRole() && (
         <div className="w-1/4 p-4 mt-17">
           <ExtensionForm />
         </div>
-
       )}
-
-
       <div className="mb-4 flex items-center justify-center mt-5">
         {/*<img src={footerlogo} alt="Logo IMEVI" width="200" height="200" className='py-4 pr-4' />*/}
       </div>
-
 
 
       {/* Contenido principal */}

@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { listarextensiones, eliminarextension, crearextension, actualizarextension, obtenerBanner } from "../api/extapi";
 export const ExtContext = createContext ();
 import { toast } from 'sonner';
+import { AiFillCloseCircle } from "react-icons/ai";
 
 export const useExten = () => {
     const context = useContext(ExtContext)
@@ -60,6 +61,14 @@ export const ExtContextProvider = ({ children }) => {
           // Actualizar el estado local o recargar las extensiones después de eliminar
           const updatedExtensions = extensions.filter((extension) => extension.id !== extensionId);
           setExtensions(updatedExtensions);
+          toast.success('Extension eliminada correctamente', {
+            icon: <AiFillCloseCircle className="text-2xl"/>,
+            style: {
+              background: '#FF6347',
+            },
+            className: 'class',
+          });
+
         } catch (error) {
           console.error('Error al eliminar la extensión:', error);
         }

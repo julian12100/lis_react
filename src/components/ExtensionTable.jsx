@@ -4,10 +4,10 @@ import { RxUpdate } from "react-icons/rx";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { RiWhatsappLine } from "react-icons/ri";
 
-
 const ExtensionTable = ({ nData, hasMesaRole, handleEliminarExtension, handleEditExtension }) => {
-  return (
-    <table className="min-w-full border-2 rounded shadow-xl">
+
+  const tablaextensiones = (
+    <>
       <thead>
         <tr>
           <th className="py-2 px-4 border-b text-left">Tipo</th>
@@ -26,10 +26,10 @@ const ExtensionTable = ({ nData, hasMesaRole, handleEliminarExtension, handleEdi
             <td className="py-2 px-4 border-b text-left">
               {extension.attributes.tipo === 'whatsapp' ? (
                 <a href={`https://api.whatsapp.com/send?phone=57${extension.attributes.extension}`} target="_blank" rel="noopener noreferrer">
-                <RiWhatsappLine />
-              </a>
-              ) : <FaPhoneVolume />
-            }
+                  <RiWhatsappLine className="text-3xl" />
+                </a>
+              ) : <FaPhoneVolume className="text-2xl" />
+              }
             </td>
             <td className="py-2 px-4 border-b text-left ">{extension.attributes.nombre}</td>
             <td className="py-2 px-4 border-b text-left">{extension.attributes.extension}</td>
@@ -59,7 +59,26 @@ const ExtensionTable = ({ nData, hasMesaRole, handleEliminarExtension, handleEdi
           </tr>
         ))}
       </tbody>
-    </table>
+    </>
+  )
+
+  return (
+    <>
+      {!hasMesaRole() ? (
+        <div className="flex justify-center">
+          <table className="w-4/5  border-2 rounded shadow-xl">
+            {tablaextensiones}
+          </table>
+        </div>
+
+
+      ) : (
+        <table className="min-w-full border-2 rounded shadow-xl">
+          {tablaextensiones}
+        </table>
+      )}
+    </>
+
   );
 };
 
