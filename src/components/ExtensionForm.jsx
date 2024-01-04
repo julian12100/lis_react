@@ -18,11 +18,11 @@ function ExtensionForm({ selectedExtension }) {
     // Si estamos en modo de edición, actualizamos el estado con la extensión seleccionada
     modedition();
   }, [isEditMode, selectedExtension]);
-
+console.log(isEditMode)
   return (
     <form onSubmit={handleFormSubmit} className="mb-6 max-w-md mx-auto border-2 p-6 rounded-md shadow-xl">
       <h2 className="text-2xl font-bold mb-4">{isEditMode ? 'Editar Extensión' : 'Agregar Nueva Extensión'}</h2>
-
+  
       <div className="mb-4">
         <label htmlFor="nombre" className="block text-gray-600 text-sm font-medium mb-1">
           Nombre:

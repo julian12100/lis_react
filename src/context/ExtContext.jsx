@@ -135,6 +135,8 @@ export const ExtContextProvider = ({ children }) => {
                 sede: newExtension.sede,
                 tipo: newExtension.tipo,
               }, selectedExtension.id);
+              fetchExtensions();
+              isEditMode(false)
               toast.success('Extension actualizada exitosamente');
           } else {
             // Realizar la petición POST con Axios para agregar la nueva extensión
@@ -143,6 +145,7 @@ export const ExtContextProvider = ({ children }) => {
             // Llamar a la función proporcionada por el padre para notificar la adición de la nueva extensión
             handleExtensionAdded(response.data.data);
             toast.success('Extension creada exitosamente');
+            fetchExtensions();
           }
     
           // Limpiar el formulario después de la creación o actualización exitosa
