@@ -3,18 +3,62 @@ import { FaPhoneVolume } from "react-icons/fa6";
 import { RxUpdate } from "react-icons/rx";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { RiWhatsappLine } from "react-icons/ri";
+import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
+import Extension from './../pages/Extension';
 
-const ExtensionTable = ({ nData, hasMesaRole, handleEliminarExtension, handleEditExtension }) => {
+const ExtensionTable = ({ nData, hasMesaRole, ordenAscendente, setOrdenAscendente, handleOrdenarPorArea, handleOrdenarPorCorreo, handleOrdenarPorNombre, handleOrdenarPorExtension, handleEliminarExtension, handleEditExtension, handleOrdenarPorSede }) => {
 
   const tablaextensiones = (
     <>
+
       <thead>
         <tr>
           <th className="py-2 px-4 border-b text-left">Tipo</th>
-          <th className="py-2 px-4 border-b text-left">Nombre</th>
-          <th className="py-2 px-4 border-b text-left">Extension</th>
-          <th className="py-2 px-4 border-b text-left">Área</th>
-          <th className="py-2 px-4 border-b text-left">Sede</th>
+          <th
+            className="py-2 px-4 border-b text-left cursor-pointer"
+            onClick={handleOrdenarPorNombre}
+          >
+            <div className="flex items-center">
+              {ordenAscendente ? <AiOutlineArrowUp className="mr-1" /> : <AiOutlineArrowDown className="mr-1" />}
+              Nombre
+            </div>
+          </th>
+          <th
+            className="py-2 px-4 border-b text-left cursor-pointer"
+            onClick={handleOrdenarPorExtension}
+          >
+            <div className="flex items-center">
+              {ordenAscendente ? <AiOutlineArrowUp className="mr-1" /> : <AiOutlineArrowDown className="mr-1" />}
+              Extension
+            </div>
+          </th>
+          <th
+        className="py-2 px-4 border-b text-left cursor-pointer"
+        onClick={handleOrdenarPorCorreo}
+      >
+        <div className="flex items-center">
+          {ordenAscendente ? <AiOutlineArrowUp className="mr-1" /> : <AiOutlineArrowDown className="mr-1" />}
+          Correo
+        </div>
+      </th>
+      <th
+        className="py-2 px-4 border-b text-left cursor-pointer"
+        onClick={handleOrdenarPorArea}
+      >
+        <div className="flex items-center">
+          {ordenAscendente ? <AiOutlineArrowUp className="mr-1" /> : <AiOutlineArrowDown className="mr-1" />}
+          Area
+        </div>
+      </th>
+          <th
+            className="py-2 px-4 border-b text-left cursor-pointer"
+            onClick={handleOrdenarPorSede}
+          >
+            <div className="flex items-center">
+              {ordenAscendente ? <AiOutlineArrowUp className="mr-1" /> : <AiOutlineArrowDown className="mr-1" />}
+              Sede
+            </div>
+          </th>
           {hasMesaRole() && (
             <th className="py-2 px-4 border-b">Acciones</th>
           )}
@@ -32,7 +76,8 @@ const ExtensionTable = ({ nData, hasMesaRole, handleEliminarExtension, handleEdi
               }
             </td>
             <td className="py-2 px-4 border-b text-left ">{extension.attributes.nombre}</td>
-            <td className="py-2 px-4 border-b text-left">{extension.attributes.extension}</td>
+            <td className="py-2 px-4 border-b text-left font-bold">{extension.attributes.extension}</td>
+            <td className="py-2 px-4 border-b text-left">{extension.attributes.correo}</td>
             <td className="py-2 px-4 border-b text-left">{extension.attributes.area}</td>
             <td className="py-2 px-4 border-b text-left">{extension.attributes.sede}</td>
             {hasMesaRole() && (

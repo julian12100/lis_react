@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const listarextensiones = async () =>
-  await axios.get('http://172.16.2.15:1339/api/extensions?sort[createdAt]=desc');
+  await axios.get('http://172.16.2.15:1339/api/extensions');
 
 export const obtenerBanner = async () => {
   try {
@@ -18,6 +18,7 @@ export const crearextension = async (newExtension) =>
     data: {
       nombre: newExtension.nombre,
       extension: newExtension.extension,
+      correo: newExtension.correo,
       area: newExtension.area,
       sede: newExtension.sede,
       tipo: newExtension.tipo,
@@ -32,6 +33,7 @@ export const actualizarextension = async (updatedExtension, id) =>
     data: {
       nombre: updatedExtension.nombre,
       extension: updatedExtension.extension,
+      correo: updatedExtension.correo,
       area: updatedExtension.area,
       sede: updatedExtension.sede,
       tipo: updatedExtension.tipo,

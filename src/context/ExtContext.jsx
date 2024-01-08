@@ -19,11 +19,15 @@ export const ExtContextProvider = ({ children }) => {
     const [sedeOptions, setSedeOptions] = useState([]);
     const [tipoOptions, setTipoOptions] = useState([]);
     const [isEditMode, setIsEditMode] = useState(false);
+    const [filteredExtensions, setFilteredExtensions] = useState([]);
     const [bannerText, setBannerText] = useState('');
     const [selectedExtension, setSelectedExtension] = useState(null);
+    const [ordenAscendente, setOrdenAscendente] = useState(true);
+    
     const [newExtension, setNewExtension] = useState({
         nombre: '',
         extension: '',
+        correo: '',
         area: '',
         sede: '',
         tipo: 'local', // Valor por defecto
@@ -43,6 +47,81 @@ export const ExtContextProvider = ({ children }) => {
         }
       };
 
+      const handleOrdenarPorSede = () => {
+        const sortedData = [...filteredExtensions].sort((b, a) =>
+          ordenAscendente
+            ? a.attributes.sede.toLowerCase().localeCompare(b.attributes.sede.toLowerCase())
+            : b.attributes.sede.toLowerCase().localeCompare(a.attributes.sede.toLowerCase())
+        );
+        setFilteredExtensions(sortedData);
+        setOrdenAscendente(!ordenAscendente); // Cambiar el estado para alternar el orden
+      };
+    
+      const handleOrdenarPorNombre = () => {
+        const sortedData = [...filteredExtensions].sort((a, b) =>
+          ordenAscendente
+            ? a.attributes.nombre.toLowerCase().localeCompare(b.attributes.nombre.toLowerCase())
+            : b.attributes.nombre.toLowerCase().localeCompare(a.attributes.nombre.toLowerCase())
+        );
+        setFilteredExtensions(sortedData);
+        setOrdenAscendente(!ordenAscendente); // Cambiar el estado para alternar el orden
+      };
+
+      const handleOrdenarPorExtension = () => {
+        const sortedData = [...filteredExtensions].sort((a, b) => {
+          const extensionA = parseFloat(a.attributes.extension);
+          const extensionB = parseFloat(b.attributes.extension);
+      
+          // Si los valores no son numéricos, no se pueden comparar, así que devolver 0.
+          if (isNaN(extensionA) || isNaN(extensionB)) {
+            return 0;
+          }
+      
+          return ordenAscendente
+            ? extensionA - extensionB
+            : extensionB - extensionA;
+        });
+      
+        setFilteredExtensions(sortedData);
+        setOrdenAscendente(!ordenAscendente);
+      };
+        
+      const handleOrdenarPorArea = () => {
+        const sortedData = [...filteredExtensions].sort((a, b) =>
+          ordenAscendente
+            ? a.attributes.area.toLowerCase().localeCompare(b.attributes.area.toLowerCase())
+            : b.attributes.area.toLowerCase().localeCompare(a.attributes.area.toLowerCase())
+        );
+        setFilteredExtensions(sortedData);
+        setOrdenAscendente(!ordenAscendente); // Cambiar el estado para alternar el orden
+      };
+
+      const handleOrdenarPorCorreo = () => {
+        const sortedData = [...filteredExtensions].sort((a, b) => {
+          const correoA = a.attributes.correo ? a.attributes.correo.toLowerCase() : null;
+          const correoB = b.attributes.correo ? b.attributes.correo.toLowerCase() : null;
+      
+          if (correoA === null && correoB === null) {
+            return 0; // Ambos son nulos, considerarlos iguales
+          }
+      
+          if (correoA === null) {
+            return ordenAscendente ? 1 : -1; // Mover los nulos al final si es ascendente, al principio si es descendente
+          }
+      
+          if (correoB === null) {
+            return ordenAscendente ? -1 : 1; // Mover los nulos al principio si es ascendente, al final si es descendente
+          }
+      
+          return ordenAscendente
+            ? correoA.localeCompare(correoB)
+            : correoB.localeCompare(correoA);
+        });
+      
+        setFilteredExtensions(sortedData);
+        setOrdenAscendente(!ordenAscendente);
+      };
+    
       const obtenerbanners = async () => {
         try {
           const banner = await obtenerBanner();
@@ -99,6 +178,7 @@ export const ExtContextProvider = ({ children }) => {
             setNewExtension({
               nombre: selectedExtension.attributes.nombre || '',
               extension: selectedExtension.attributes.extension || '',
+              correo: selectedExtension.attributes.correo || '',
               area: selectedExtension.attributes.area || '',
               sede: selectedExtension.attributes.sede || '',
               tipo: selectedExtension.attributes.tipo || 'local',
@@ -131,12 +211,13 @@ export const ExtContextProvider = ({ children }) => {
             await actualizarextension({
                 nombre: newExtension.nombre,
                 extension: newExtension.extension,
+                correo: newExtension.correo,
                 area: newExtension.area,
                 sede: newExtension.sede,
                 tipo: newExtension.tipo,
               }, selectedExtension.id);
               fetchExtensions();
-              isEditMode(false)
+              setIsEditMode(false);
               toast.success('Extension actualizada exitosamente');
           } else {
             // Realizar la petición POST con Axios para agregar la nueva extensión
@@ -152,6 +233,7 @@ export const ExtContextProvider = ({ children }) => {
           setNewExtension({
             nombre: '',
             extension: '',
+            correo: '',
             area: '',
             sede: '',
             tipo: 'local',
@@ -200,7 +282,16 @@ export const ExtContextProvider = ({ children }) => {
     selectedExtension,
     obtenerbanners,
     bannerText,
-    handleInputBanner
+    handleInputBanner,
+    setFilteredExtensions,
+    filteredExtensions,
+    handleOrdenarPorSede,
+    handleOrdenarPorNombre,
+    handleOrdenarPorExtension,
+    ordenAscendente,
+    setOrdenAscendente,
+    handleOrdenarPorArea,
+    handleOrdenarPorCorreo
    }}>
         {children}
     </ExtContext.Provider>

@@ -54,19 +54,42 @@ console.log(isEditMode)
       </div>
 
       <div className="mb-4">
-        <label htmlFor="area" className="block text-gray-600 text-sm font-medium mb-1">
-          Área:
+        <label htmlFor="correo" className="block text-gray-600 text-sm font-medium mb-1">
+          Correo:
         </label>
         <input
           type="text"
+          id="correo"
+          name="correo"
+          value={newExtension.correo}
+          onChange={handleInputChange}
+          required
+          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+        />
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="area" className="block text-gray-600 text-sm font-medium mb-1">
+          Area:
+        </label>
+        <select
           id="area"
           name="area"
           value={newExtension.area}
           onChange={handleInputChange}
           required
           className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
-        />
+        >
+          <option value="">Seleccionar Area</option>
+          <option value="Líneas corporativas">Líneas corporativas</option>
+          <option value="Servicios en salud">Servicios en salud</option>
+          <option value="Servicios Opticos">Servicios Opticos</option>
+          <option value="Administracion">Administracion</option>
+          <option value="Call Center">Call Center</option>
+        </select>
       </div>
+
+
 
       <div className="mb-4">
         <label htmlFor="sede" className="block text-gray-600 text-sm font-medium mb-1">

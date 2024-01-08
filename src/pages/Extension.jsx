@@ -8,17 +8,20 @@ import ExtensionTable from '../components/ExtensionTable';
 import Pdf from '../components/Pdf';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import { Toaster, toast } from 'sonner';
+import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
+
 
 function Extension(user) {
 
-  const { extensions, fetchExtensions, uniqueSedes, handleEliminarExtension, handleEditExtension, obtenerbanners, bannerText, handleInputBanner } = useExten()
+  const { extensions, fetchExtensions, ordenAscendente, setOrdenAscendente, uniqueSedes, handleOrdenarPorSede, handleOrdenarPorExtension, handleOrdenarPorArea, handleOrdenarPorCorreo, handleOrdenarPorNombre, handleEliminarExtension, handleEditExtension, obtenerbanners, bannerText, handleInputBanner, setFilteredExtensions, filteredExtensions } = useExten()
 
-  const [filteredExtensions, setFilteredExtensions] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSede, setSelectedSede] = useState('');
+  const [selectedArea, setSelectedArea] = useState('');
   const [dataQt, setDataQt] = useState(25);
   const [currentPage, setcurrentPage] = useState(1)
   const [response, setResponse] = useState(null);
+
 
 
   // Función para verificar si el usuario tiene el rol "Mesa"
@@ -41,7 +44,6 @@ function Extension(user) {
   const prev = () => {
     if (currentPage !== 1) setcurrentPage(currentPage - 1)
   }
-
   // control para la eliminacion de extensiones
 
   useEffect(() => {
@@ -54,19 +56,40 @@ function Extension(user) {
             value.toLowerCase().includes(searchTerm.toLowerCase())
         )
       )
-      .filter((extension) => !selectedSede || extension.attributes.sede === selectedSede);
+      .filter((extension) => 
+        (!selectedSede || extension.attributes.sede === selectedSede) &&
+        (!selectedArea || extension.attributes.area === selectedArea)
+      ).sort((a, b) => {
+        // Ordenar por orden alfabético de la columna "sede"
+        const sedeA = a.attributes.sede.toLowerCase();
+        const sedeB = b.attributes.sede.toLowerCase();
+        if (sedeA < sedeB) {
+          return -1;
+        }
+        if (sedeA > sedeB) {
+          return 1;
+        }
+        return 0;
+      });
 
     setFilteredExtensions(filteredData);
-  }, [searchTerm, extensions, selectedSede]);
+  }, [searchTerm, extensions, selectedSede, selectedArea]);
 
+  
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
+    setcurrentPage(1);
   };
 
   const handleSedeChange = (e) => {
     setSelectedSede(e.target.value);
+    setcurrentPage(1);
   };
 
+  const handleAreaChange = (e) => {
+    setSelectedArea(e.target.value);
+    setcurrentPage(1);
+  };
 
   const handlePutRequest = () => {
     // Realiza la solicitud PUT con el nuevo texto del banner
@@ -153,6 +176,24 @@ function Extension(user) {
             </option>
           ))}
         </select>
+        {/* Cuadro de filtro para las áreas */}
+<label htmlFor="areaFilter" className="mb-2">
+  Filtrar por Área:
+</label>
+<select
+  id="areaFilter"
+  value={selectedArea}
+  onChange={handleAreaChange}
+  className="border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 px-2 py-1 mb-4 m-4"
+>
+  <option value="">Todas las Áreas</option>
+  <option value="Líneas corporativas">Líneas corporativas</option>
+  <option value="Servicios en salud">Servicios en salud</option>
+  <option value="Servicios Opticos">Servicios Opticos</option>
+  <option value="Administracion">Administracion</option>
+  <option value="Call Center">Call Center</option>
+  {/* Agrega opciones de áreas aquí */}
+</select>
 
         <PDFDownloadLink document={<Pdf filtrosede={filteredExtensions} />} fileName="extensiones_imevi.pdf">
           {({ loading, url, error, blob }) => (
@@ -174,7 +215,13 @@ function Extension(user) {
       {/* Lista de extensiones */}
       <ExtensionTable
         nData={nData}
+        handleOrdenarPorSede={handleOrdenarPorSede}
+        handleOrdenarPorNombre={handleOrdenarPorNombre}
+        handleOrdenarPorExtension={handleOrdenarPorExtension}
+        handleOrdenarPorArea={handleOrdenarPorArea}
+        handleOrdenarPorCorreo={handleOrdenarPorCorreo}
         hasMesaRole={hasMesaRole}
+        ordenAscendente={ordenAscendente}
         handleEliminarExtension={handleEliminarExtension}
         handleEditExtension={handleEditExtension}
       />
