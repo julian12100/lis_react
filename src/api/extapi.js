@@ -36,6 +36,7 @@ export const actualizarextension = async (updatedExtension, id) =>
       extension: updatedExtension.extension,
       correo: updatedExtension.correo,
       area: updatedExtension.area,
+      dispositivo: updatedExtension.dispositivo,
       sede: updatedExtension.sede,
       tipo: updatedExtension.tipo,
     },
