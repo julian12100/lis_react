@@ -70,6 +70,24 @@ console.log(isEditMode)
 
       <div className="mb-4">
         <label htmlFor="area" className="block text-gray-600 text-sm font-medium mb-1">
+          Dispositivo:
+        </label>
+        <select
+          id="dispositivo"
+          name="dispositivo"
+          value={newExtension.dispositivo}
+          onChange={handleInputChange}
+          required
+          className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
+        >
+          <option value="">Seleccionar Dispositivo</option>
+          <option value="Líneas corporativas">Virtual</option>
+          <option value="Servicios en salud">Fisico</option>
+        </select>
+      </div>
+
+      <div className="mb-4">
+        <label htmlFor="area" className="block text-gray-600 text-sm font-medium mb-1">
           Area:
         </label>
         <select

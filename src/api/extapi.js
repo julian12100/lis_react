@@ -20,6 +20,7 @@ export const crearextension = async (newExtension) =>
       extension: newExtension.extension,
       correo: newExtension.correo,
       area: newExtension.area,
+      dispositivo: newExtension.dispositivo,
       sede: newExtension.sede,
       tipo: newExtension.tipo,
     },

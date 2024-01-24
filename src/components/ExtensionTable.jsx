@@ -6,7 +6,7 @@ import { RiWhatsappLine } from "react-icons/ri";
 import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
 import Extension from './../pages/Extension';
 
-const ExtensionTable = ({ nData, hasMesaRole, ordenAscendente, setOrdenAscendente, handleOrdenarPorArea, handleOrdenarPorCorreo, handleOrdenarPorNombre, handleOrdenarPorExtension, handleEliminarExtension, handleEditExtension, handleOrdenarPorSede }) => {
+const ExtensionTable = ({ nData, hasMesaRole, ordenAscendente, handleOrdenarPorDispositivo, handleOrdenarPorArea, handleOrdenarPorCorreo, handleOrdenarPorNombre, handleOrdenarPorExtension, handleEliminarExtension, handleEditExtension, handleOrdenarPorSede }) => {
 
   const tablaextensiones = (
     <>
@@ -30,6 +30,15 @@ const ExtensionTable = ({ nData, hasMesaRole, ordenAscendente, setOrdenAscendent
             <div className="flex items-center">
               {ordenAscendente ? <AiOutlineArrowUp className="mr-1" /> : <AiOutlineArrowDown className="mr-1" />}
               Extension
+            </div>
+          </th>
+          <th
+            className="py-2 px-4 border-b text-left cursor-pointer"
+            onClick={handleOrdenarPorDispositivo}
+          >
+            <div className="flex items-center">
+              {ordenAscendente ? <AiOutlineArrowUp className="mr-1" /> : <AiOutlineArrowDown className="mr-1" />}
+              Dispositivo
             </div>
           </th>
           <th
@@ -77,6 +86,7 @@ const ExtensionTable = ({ nData, hasMesaRole, ordenAscendente, setOrdenAscendent
             </td>
             <td className="py-2 px-4 border-b text-left ">{extension.attributes.nombre}</td>
             <td className="py-2 px-4 border-b text-left font-bold">{extension.attributes.extension}</td>
+            <td className="py-2 px-4 border-b text-left">{extension.attributes.dispositivo}</td>
             <td className="py-2 px-4 border-b text-left">{extension.attributes.correo}</td>
             <td className="py-2 px-4 border-b text-left">{extension.attributes.area}</td>
             <td className="py-2 px-4 border-b text-left">{extension.attributes.sede}</td>

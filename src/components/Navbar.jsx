@@ -8,12 +8,6 @@ function Navbar({ user }) {
   
     // Función para verificar si el usuario tiene el rol "Mesa"
     const hasMesaRole = () => user && user.roles && user.roles.includes('mesa');
-
-    //{hasMesaRole() && (
-    //  <li className="text-white py-2 px-4 pt-1 lg:mr-7 hover:text-white/25 transition duration-500 ease-in-out">
-    //    <Link to="/extensiones">Extensiones</Link>
-    //  </li>
-    //)}
   
     return (
       <>
@@ -62,20 +56,6 @@ function Navbar({ user }) {
                 }`}
               >
                 <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                
-                {hasMesaRole() && (
- <li className="text-white py-2 px-4 pt-1 lg:mr-7 hover:text-white/25 transition duration-500 ease-in-out">  
-                    <Link to="/">🏡 Inicio</Link>
-                  </li>
-                )}
-                
-                 
-
-                  {hasMesaRole() && (
-                  <li className="text-white py-2 px-4 pt-1 lg:mr-7 hover:text-white/25 transition duration-500 ease-in-out">
-                    <Link to="/analytics">Analytics</Link>
-                  </li>
-                  )}
                  
                     <li className="text-white py-2 px-4 pt-1 lg:mr-7 hover:text-white/25 transition duration-500 ease-in-out">
                       <Link to="/extensiones">☎️ Extensiones</Link>

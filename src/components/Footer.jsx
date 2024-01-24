@@ -5,7 +5,7 @@ function Footer() {
     <footer>
     <div className="py-2 relative pl-6 pr-6">
     <div className="bg-imeviColor w-full rounded-md text-center">
-      <p className="text-white">© Copyright IMEVI | Diseñado y desarrollado por : IMEVI SAS.</p> 
+      <p className="text-white">© Copyright IMEVI | Diseñado y desarrollado para : IMEVI SAS.</p> 
     </div>
     </div>
 </footer>

@@ -29,6 +29,7 @@ export const ExtContextProvider = ({ children }) => {
         extension: '',
         correo: '',
         area: '',
+        dispositivo: '',
         sede: '',
         tipo: 'local', // Valor por defecto
       });
@@ -57,6 +58,32 @@ export const ExtContextProvider = ({ children }) => {
         setOrdenAscendente(!ordenAscendente); // Cambiar el estado para alternar el orden
       };
     
+      const handleOrdenarPorDispositivo = () => {
+        const sortedData = [...filteredExtensions].sort((a, b) => {
+          const dispositivoA = a.attributes.dispositivo ? a.attributes.dispositivo.toLowerCase() : null;
+          const dispositivoB = b.attributes.dispositivo ? b.attributes.dispositivo.toLowerCase() : null;
+      
+          if (dispositivoA === null && dispositivoB === null) {
+            return 0; // Ambos son nulos, considerarlos iguales
+          }
+      
+          if (dispositivoA === null) {
+            return ordenAscendente ? 1 : -1; // Mover los nulos al final si es ascendente, al principio si es descendente
+          }
+      
+          if (dispositivoB === null) {
+            return ordenAscendente ? -1 : 1; // Mover los nulos al principio si es ascendente, al final si es descendente
+          }
+      
+          return ordenAscendente
+            ? dispositivoA.localeCompare(dispositivoB)
+            : dispositivoB.localeCompare(dispositivoA);
+        });
+      
+        setFilteredExtensions(sortedData);
+        setOrdenAscendente(!ordenAscendente);
+      };
+
       const handleOrdenarPorNombre = () => {
         const sortedData = [...filteredExtensions].sort((a, b) =>
           ordenAscendente
@@ -180,6 +207,7 @@ export const ExtContextProvider = ({ children }) => {
               extension: selectedExtension.attributes.extension || '',
               correo: selectedExtension.attributes.correo || '',
               area: selectedExtension.attributes.area || '',
+              dispositivo: selectedExtension.attributes.dispositivo || '',
               sede: selectedExtension.attributes.sede || '',
               tipo: selectedExtension.attributes.tipo || 'local',
             });
@@ -213,6 +241,7 @@ export const ExtContextProvider = ({ children }) => {
                 extension: newExtension.extension,
                 correo: newExtension.correo,
                 area: newExtension.area,
+                dispositivo: newExtension.dispositivo,
                 sede: newExtension.sede,
                 tipo: newExtension.tipo,
               }, selectedExtension.id);
@@ -235,6 +264,7 @@ export const ExtContextProvider = ({ children }) => {
             extension: '',
             correo: '',
             area: '',
+            dispositivo: '',
             sede: '',
             tipo: 'local',
           });
@@ -291,7 +321,8 @@ export const ExtContextProvider = ({ children }) => {
     ordenAscendente,
     setOrdenAscendente,
     handleOrdenarPorArea,
-    handleOrdenarPorCorreo
+    handleOrdenarPorCorreo,
+    handleOrdenarPorDispositivo
    }}>
         {children}
     </ExtContext.Provider>
