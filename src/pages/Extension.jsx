@@ -13,7 +13,7 @@ import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
 
 function Extension(user) {
 
-  const { extensions, fetchExtensions, ordenAscendente, setOrdenAscendente, uniqueSedes, handleOrdenarPorDispositivo, handleOrdenarPorSede, handleOrdenarPorExtension, handleOrdenarPorArea, handleOrdenarPorCorreo, handleOrdenarPorNombre, handleEliminarExtension, handleEditExtension, obtenerbanners, bannerText, handleInputBanner, setFilteredExtensions, filteredExtensions } = useExten()
+  const { extensions, fetchExtensions, ordenAscendente, categorias, sedes, setOrdenAscendente, uniqueSedes, handleOrdenarPorDispositivo, handleOrdenarPorSede, handleOrdenarPorExtension, handleOrdenarPorArea, handleOrdenarPorCorreo, handleOrdenarPorNombre, handleEliminarExtension, handleEditExtension, obtenerbanners, bannerText, handleInputBanner, setFilteredExtensions, filteredExtensions } = useExten()
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSede, setSelectedSede] = useState('');
@@ -33,6 +33,7 @@ function Extension(user) {
     fetchExtensions();
   }, []);
 
+  console.log(categorias)
   // variables creadas para el control de la paginacion 
   const indexfin = currentPage * dataQt
   const indexini = indexfin - dataQt
@@ -56,7 +57,7 @@ function Extension(user) {
             value.toLowerCase().includes(searchTerm.toLowerCase())
         )
       )
-      .filter((extension) => 
+      .filter((extension) =>
         (!selectedSede || extension.attributes.sede === selectedSede) &&
         (!selectedArea || extension.attributes.area === selectedArea)
       ).sort((a, b) => {
@@ -75,7 +76,7 @@ function Extension(user) {
     setFilteredExtensions(filteredData);
   }, [searchTerm, extensions, selectedSede, selectedArea]);
 
-  
+
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
     setcurrentPage(1);
@@ -169,31 +170,30 @@ function Extension(user) {
           onChange={handleSedeChange}
           className="border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 px-2 py-1 mb-4 m-4"
         >
-          <option value="">Todas las Sedes</option>
-          {uniqueSedes.map((sede, index) => (
-            <option key={index} value={sede}>
-              {sede}
+         <option value="">Todas las Sedes</option>
+          {sedes.map((sedes, index) => (
+            <option key={index} value={sedes.attributes.sede}>
+              {sedes.attributes.sede}
             </option>
           ))}
         </select>
         {/* Cuadro de filtro para las áreas */}
-<label htmlFor="areaFilter" className="mb-2">
-  Filtrar por Área:
-</label>
-<select
-  id="areaFilter"
-  value={selectedArea}
-  onChange={handleAreaChange}
-  className="border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 px-2 py-1 mb-4 m-4"
->
-  <option value="">Todas las Áreas</option>
-  <option value="Líneas corporativas">Líneas corporativas</option>
-  <option value="Servicios en salud">Servicios en salud</option>
-  <option value="Servicios Opticos">Servicios Opticos</option>
-  <option value="Administracion">Administracion</option>
-  <option value="Call Center">Call Center</option>
-  {/* Agrega opciones de áreas aquí */}
-</select>
+        <label htmlFor="areaFilter" className="mb-2">
+          Filtrar por Área:
+        </label>
+        <select
+          id="areaFilter"
+          value={selectedArea}
+          onChange={handleAreaChange}
+          className="border border-gray-300 rounded-md focus:outline-none focus:border-blue-500 px-2 py-1 mb-4 m-4"
+        >
+          <option value="">Todas las Áreas</option>
+          {categorias.map((categoria, index) => (
+            <option key={index} value={categoria.attributes.categoria}>
+              {categoria.attributes.categoria}
+            </option>
+          ))}
+        </select>
 
         <PDFDownloadLink document={<Pdf filtrosede={filteredExtensions} />} fileName="extensiones_imevi.pdf">
           {({ loading, url, error, blob }) => (

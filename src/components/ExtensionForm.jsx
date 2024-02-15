@@ -5,7 +5,7 @@ import { IoIosCreate } from "react-icons/io";
 
 function ExtensionForm({ selectedExtension }) {
 
-  const {newExtension, fetchOptions, sedeOptions, tipoOptions, modedition, isEditMode, handleInputChange, handleFormSubmit} = useExten()
+  const {newExtension, fetchOptions, sedeOptions, sedes, categorias, tipoOptions, modedition, isEditMode, handleInputChange, handleFormSubmit} = useExten()
 
   
 
@@ -18,7 +18,7 @@ function ExtensionForm({ selectedExtension }) {
     // Si estamos en modo de edición, actualizamos el estado con la extensión seleccionada
     modedition();
   }, [isEditMode, selectedExtension]);
-console.log(isEditMode)
+
   return (
     <form onSubmit={handleFormSubmit} className="mb-6 max-w-md mx-auto border-2 p-6 rounded-md shadow-xl">
       <h2 className="text-2xl font-bold mb-4">{isEditMode ? 'Editar Extensión' : 'Agregar Nueva Extensión'}</h2>
@@ -98,16 +98,14 @@ console.log(isEditMode)
           required
           className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
         >
-          <option value="">Seleccionar Area</option>
-          <option value="Líneas corporativas">Líneas corporativas</option>
-          <option value="Servicios en salud">Servicios en salud</option>
-          <option value="Servicios Opticos">Servicios Opticos</option>
-          <option value="Administracion">Administracion</option>
-          <option value="Call Center">Call Center</option>
+          <option value="">Todas las Áreas</option>
+          {categorias.map((categoria, index) => (
+            <option key={index} value={categoria.attributes.categoria}>
+              {categoria.attributes.categoria}
+            </option>
+          ))}
         </select>
       </div>
-
-
 
       <div className="mb-4">
         <label htmlFor="sede" className="block text-gray-600 text-sm font-medium mb-1">
@@ -121,10 +119,10 @@ console.log(isEditMode)
           required
           className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500"
         >
-          <option value="">Seleccionar Sede</option>
-          {sedeOptions.map((sede, index) => (
-            <option key={index} value={sede}>
-              {sede}
+          <option value="">Todas las Sedes</option>
+          {sedes.map((sedes, index) => (
+            <option key={index} value={sedes.attributes.sede}>
+              {sedes.attributes.sede}
             </option>
           ))}
         </select>

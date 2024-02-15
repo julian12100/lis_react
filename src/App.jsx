@@ -4,6 +4,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import Navbar from './components/Navbar';
 import Athentic from './components/Athentic';
 import { useExten } from '../src/context/ExtContext';
+import Parameters from './pages/Parameters';
 const Extension = lazy (() => import("./pages/Extension"));
 
 function App() {
@@ -53,20 +54,14 @@ function App() {
       <Athentic user={user} onLogin={handleLogin} onLogout={handleLogout} />
       <Navbar user={user} />
       <Routes>
-        <Route path='/extensiones' element={
 
-          <Extension user={user} />
-
-        } />
-
-
-
-
-
+        <Route element={<ProtectedRoute isAllowed={!!user}/>}>
+          <Route path='/params' element={ <Parameters/>}/>
+        </Route>
+    
+        <Route path='/extensiones' element={ <Extension user={user} />} />
         <Route path='/' element={<Navigate to="/extensiones" />} />
         
-       
-
       </Routes>
     
     </>

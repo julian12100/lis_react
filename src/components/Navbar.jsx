@@ -60,7 +60,11 @@ function Navbar({ user }) {
                     <li className="text-white py-2 px-4 pt-1 lg:mr-7 hover:text-white/25 transition duration-500 ease-in-out">
                       <Link to="/extensiones">☎️ Extensiones</Link>
                     </li>
-               
+                    {user && (
+                  <li className="text-white py-2 px-4 pt-1 lg:mr-7 hover:text-white/25 transition duration-500 ease-in-out">
+                    <Link to="/params">⚙️ Parametros</Link>
+                  </li>
+                )}
                   
                 </ul>
               </div>
