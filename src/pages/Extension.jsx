@@ -13,7 +13,7 @@ import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
 
 function Extension(user) {
 
-  const { extensions, fetchExtensions, ordenAscendente, categorias, sedes, setOrdenAscendente, uniqueSedes, handleOrdenarPorDispositivo, handleOrdenarPorSede, handleOrdenarPorExtension, handleOrdenarPorArea, handleOrdenarPorCorreo, handleOrdenarPorNombre, handleEliminarExtension, handleEditExtension, obtenerbanners, bannerText, handleInputBanner, setFilteredExtensions, filteredExtensions } = useExten()
+  const { extensions, fetchExtensions, ordenAscendente, categorias, sedes, setOrdenAscendente, uniqueSedes, handleOrdenarPorDispositivo, handleOrdenarPorSede, handleOrdenarPorExtension, handleOrdenarPorArea, handleOrdenarPorCorreo, handleOrdenarPorNombre, handleEliminarExtension, handleEditExtension, obtenerbanners, bannerText, handleInputBanner, setFilteredExtensions, filteredExtensions, isEditMode } = useExten()
 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSede, setSelectedSede] = useState('');
@@ -33,7 +33,6 @@ function Extension(user) {
     fetchExtensions();
   }, []);
 
-  console.log(categorias)
   // variables creadas para el control de la paginacion 
   const indexfin = currentPage * dataQt
   const indexini = indexfin - dataQt
@@ -225,6 +224,7 @@ function Extension(user) {
         handleEliminarExtension={handleEliminarExtension}
         handleEditExtension={handleEditExtension}
         handleOrdenarPorDispositivo={handleOrdenarPorDispositivo}
+        isEditMode={isEditMode}
       />
       <div className="flex items-center justify-center space-x-4">
         <h3

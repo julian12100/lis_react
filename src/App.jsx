@@ -38,6 +38,7 @@ function App() {
       id: userData.user.id,
       username: userData.user.username,
       email: userData.user.email,
+      jwt: userData.jwt,
       confirmed: userData.user.confirmed,
       nombre: userData.user.nombre,
       roles: userData.user.roles || [],

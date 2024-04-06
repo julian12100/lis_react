@@ -252,6 +252,7 @@ export const ExtContextProvider = ({ children }) => {
 
     try {
       // Determinar si estamos en modo de edición o adición
+      
       if (isEditMode) {
         // Realizar la petición PUT para actualizar la extensión existente
         await actualizarextension({
@@ -267,13 +268,22 @@ export const ExtContextProvider = ({ children }) => {
         setIsEditMode(false);
         toast.success('Extension actualizada exitosamente');
       } else {
-        // Realizar la petición POST con Axios para agregar la nueva extensión
-        const response = await crearextension(newExtension)
+        // Obtener el token JWT del almacenamiento local
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      if (!storedUser || !storedUser.jwt) {
+        throw new Error('Token JWT no encontrado en el localStorage');
+      }
+      const token = storedUser.jwt;
 
-        // Llamar a la función proporcionada por el padre para notificar la adición de la nueva extensión
-        handleExtensionAdded(response.data.data);
-        toast.success('Extension creada exitosamente');
-        fetchExtensions();
+      // Configurar los encabezados para incluir el token JWT
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      await crearextension(newExtension, config);
+      toast.success('Extensión creada exitosamente');
+      fetchExtensions();
       }
 
       // Limpiar el formulario después de la creación o actualización exitosa

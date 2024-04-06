@@ -3,10 +3,9 @@ import { FaPhoneVolume } from "react-icons/fa6";
 import { RxUpdate } from "react-icons/rx";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { RiWhatsappLine } from "react-icons/ri";
-import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';
-import Extension from './../pages/Extension';
+import { AiOutlineArrowUp, AiOutlineArrowDown } from 'react-icons/ai';  
 
-const ExtensionTable = ({ nData, hasMesaRole, ordenAscendente, handleOrdenarPorDispositivo, handleOrdenarPorArea, handleOrdenarPorCorreo, handleOrdenarPorNombre, handleOrdenarPorExtension, handleEliminarExtension, handleEditExtension, handleOrdenarPorSede }) => {
+const ExtensionTable = ({ nData, hasMesaRole, ordenAscendente, handleOrdenarPorDispositivo, handleOrdenarPorArea, handleOrdenarPorCorreo, handleOrdenarPorNombre, handleOrdenarPorExtension, handleEliminarExtension, handleEditExtension, handleOrdenarPorSede, isEditMode }) => {
 
   const tablaextensiones = (
     <>
@@ -14,7 +13,7 @@ const ExtensionTable = ({ nData, hasMesaRole, ordenAscendente, handleOrdenarPorD
       <thead>
         <tr>
           <th className="py-2 px-4 border-b text-left">Tipo</th>
-          <th
+          <th 
             className="py-2 px-4 border-b text-left cursor-pointer"
             onClick={handleOrdenarPorNombre}
           >
@@ -102,7 +101,8 @@ const ExtensionTable = ({ nData, hasMesaRole, ordenAscendente, handleOrdenarPorD
                   </button>
                   <button
                     onClick={() => handleEditExtension(extension)}
-                    className="bg-blue-700 hover:bg-blue-200 text-white font-bold py-2 px-4 rounded inline-flex items-center m-2"
+                    className={`bg-blue-700 hover:bg-blue-200 text-white font-bold py-2 px-4 rounded inline-flex items-center m-2 ${isEditMode ? 'cursor-not-allowed opacity-50' : ''}`}
+                    disabled={isEditMode}
                   >
                     <RxUpdate />
 

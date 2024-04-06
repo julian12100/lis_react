@@ -23,7 +23,8 @@ export const obtenerBanner = async () => {
 };
 
 // Función para crear una nueva extensión mediante una solicitud POST
-export const crearextension = async (newExtension) =>
+export const crearextension = async (newExtension, config) => 
+
   await axios.post('http://172.16.2.15:1339/api/extensions', {
     data: {
       nombre: newExtension.nombre,
@@ -34,25 +35,67 @@ export const crearextension = async (newExtension) =>
       sede: newExtension.sede,
       tipo: newExtension.tipo,
     },
-  });
+  }, config);
 
 // Función para eliminar una extensión mediante una solicitud DELETE
-export const eliminarextension = async (id) =>
-  await axios.delete(`http://172.16.2.15:1339/api/extensions/${id}`);
+export const eliminarextension = async (id) => {
+  try {
+    // Obtener el token JWT del almacenamiento local
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (!storedUser || !storedUser.jwt) {
+      throw new Error('Token JWT no encontrado en el localStorage');
+    }
+    const token = storedUser.jwt;
+
+    // Configurar los encabezados para incluir el token JWT
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    // Realizar la solicitud DELETE con Axios para eliminar la extensión
+    await axios.delete(`http://172.16.2.15:1339/api/extensions/${id}`, config);
+  } catch (error) {
+    console.error('Error al eliminar la extensión:', error);
+    throw error; // Propaga el error para que pueda ser manejado en el código que llama a esta función
+  }
+};
 
 // Función para actualizar una extensión mediante una solicitud PUT
-export const actualizarextension = async (updatedExtension, id) =>
-  await axios.put(`http://172.16.2.15:1339/api/extensions/${id}`, {
-    data: {
-      nombre: updatedExtension.nombre,
-      extension: updatedExtension.extension,
-      correo: updatedExtension.correo,
-      area: updatedExtension.area,
-      dispositivo: updatedExtension.dispositivo,
-      sede: updatedExtension.sede,
-      tipo: updatedExtension.tipo,
-    },
-  });
+export const actualizarextension = async (updatedExtension, id) => {
+  try {
+    // Obtener el token JWT del almacenamiento local
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (!storedUser || !storedUser.jwt) {
+      throw new Error('Token JWT no encontrado en el localStorage');
+    }
+    const token = storedUser.jwt;
+
+    // Configurar los encabezados para incluir el token JWT
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    // Realizar la solicitud PUT con Axios para actualizar la extensión
+    await axios.put(`http://172.16.2.15:1339/api/extensions/${id}`, {
+      data: {
+        nombre: updatedExtension.nombre,
+        extension: updatedExtension.extension,
+        correo: updatedExtension.correo,
+        area: updatedExtension.area,
+        dispositivo: updatedExtension.dispositivo,
+        sede: updatedExtension.sede,
+        tipo: updatedExtension.tipo,
+      },
+    }, config);
+  } catch (error) {
+    console.error('Error al actualizar la extensión:', error);
+    throw error; // Propaga el error para que pueda ser manejado en el código que llama a esta función
+  }
+};
 
 // Función para obtener y cargar datos de categorías desde la API
 export const fetchDataCategorias = async (setData) => {
