@@ -10,7 +10,7 @@ import { ExtContextProvider } from './context/ExtContext';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ExtContextProvider>
-    <BrowserRouter basename="/extensiones">
+    <BrowserRouter>
     <Suspense fallback={<div className="flex items-center justify-center min-h-screen bg-gray-100">
     <div className="loader"></div>
 </div>}>
