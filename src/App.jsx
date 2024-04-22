@@ -61,7 +61,6 @@ function App() {
         </Route>
     
         <Route path='/extensiones' element={ <Extension user={user} />} />
-        <Route path='/' element={<Navigate to="/extensiones" />} />
         
       </Routes>
     
